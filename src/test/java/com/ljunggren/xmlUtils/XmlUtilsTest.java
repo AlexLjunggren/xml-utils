@@ -39,5 +39,21 @@ public class XmlUtilsTest {
         User generatedUser = XmlUtils.xmlToObject(xml, User.class);
         assertEquals(user, generatedUser);
     }
+    
+    @Test
+    public void areEqualTest() throws JsonMappingException, JsonProcessingException {
+        User user = new User("Alex", 40, true);
+        String expected = "<User active=\"true\"><name>Alex</name><age>40</age></User>";
+        String actual = XmlUtils.objectToXml(user);
+        assertTrue(XmlUtils.areEqual(expected, actual));
+    }
+
+    @Test
+    public void areEqualFalseTest() throws JsonMappingException, JsonProcessingException {
+        User user = new User("Alex", 40, true);
+        String expected = "<User active=\"true\"><name>Alexander</name><age>40</age></User>";
+        String actual = XmlUtils.objectToXml(user);
+        assertFalse(XmlUtils.areEqual(expected, actual));
+    }
 
 }
