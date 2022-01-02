@@ -14,6 +14,12 @@ XML to Object
 MyClass myObject = XmlUtils.xmlToObject(xml, MyClass.class);
 ```
 
+Check if String is a valid XML
+
+```java
+XmlUtils.isValid(xml);
+```
+
 Determine if two XML Strings are equal
 
 ```java

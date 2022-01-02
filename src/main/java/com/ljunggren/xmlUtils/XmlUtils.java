@@ -14,6 +14,15 @@ public class XmlUtils {
         return new XmlMapper().readValue(xml, clazz);
     }
     
+    public static boolean isValid(String xml) {
+        try {
+            new XmlMapper().readTree(xml);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
     public static boolean areEqual(String xml1, String xml2) throws JsonMappingException, JsonProcessingException {
         XmlMapper mapper = new XmlMapper();
         return mapper.readTree(xml1).equals(mapper.readTree(xml2));

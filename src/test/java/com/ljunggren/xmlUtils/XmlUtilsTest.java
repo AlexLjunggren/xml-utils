@@ -41,6 +41,23 @@ public class XmlUtilsTest {
     }
     
     @Test
+    public void isValidTest() throws JsonProcessingException {
+        User user = new User("Alex", 40, true);
+        String xml = XmlUtils.objectToXml(user);
+        assertTrue(XmlUtils.isValid(xml));
+    }
+    
+    @Test
+    public void isValidNullTest() {
+        assertFalse(XmlUtils.isValid(null));
+    }
+    
+    @Test
+    public void isValidFalseTest() {
+        assertFalse(XmlUtils.isValid("<User"));
+    }
+    
+    @Test
     public void areEqualTest() throws JsonMappingException, JsonProcessingException {
         User user = new User("Alex", 40, true);
         String expected = "<User active=\"true\"><name>Alex</name><age>40</age></User>";
