@@ -8,6 +8,12 @@ Object to XML
 String xml = XmlUtils.objectToXml(myObject);
 ```
 
+Object to pretty printed XML
+
+```java
+String prettyPrinted = XmlUtils.prettyPrint(myObeject);
+```
+
 XML to Object
 
 ```java

@@ -33,6 +33,17 @@ public class XmlUtilsTest {
     }
     
     @Test
+    public void prettyPrintTest() throws JsonProcessingException {
+        User user = new User("Alex", 40, true);
+        String expected = "<User active=\"true\">\r\n"
+                + "  <name>Alex</name>\r\n"
+                + "  <age>40</age>\r\n"
+                + "</User>\r\n";
+        String actual = XmlUtils.prettyPrint(user);
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     public void xmlToObjectTest() throws JsonMappingException, JsonProcessingException {
         User user = new User("Alex", 40, true);
         String xml = XmlUtils.objectToXml(user);
