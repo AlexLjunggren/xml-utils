@@ -1,4 +1,4 @@
-package com.ljunggren.xmlUtils;
+package io.ljunggren.xmlUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
