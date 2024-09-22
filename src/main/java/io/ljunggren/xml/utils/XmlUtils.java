@@ -1,4 +1,4 @@
-package io.ljunggren.xmlUtils;
+package io.ljunggren.xml.utils;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -15,9 +15,11 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 public class XmlUtils {
 
@@ -36,6 +38,7 @@ public class XmlUtils {
     
     private static String prettyPrintString(String xml, boolean ignoreDeclaration) {
         try {
+            xml = xml.replaceAll("\\>\\s+\\<", "><");
             InputSource src = new InputSource(new StringReader(xml));
             Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(src);
 
@@ -58,7 +61,7 @@ public class XmlUtils {
         return mapper.writeValueAsString(object);
     }
     
-    public static <T> T xmlToObject(String xml, Class<T> clazz) throws JsonMappingException, JsonProcessingException {
+    public static <T> T xmlToObject(String xml, Class<T> clazz) throws JsonProcessingException {
         return new XmlMapper().readValue(xml, clazz);
     }
     
@@ -71,9 +74,19 @@ public class XmlUtils {
         }
     }
     
-    public static boolean areEqual(String xml1, String xml2) throws JsonMappingException, JsonProcessingException {
+    public static boolean areEqual(String xml1, String xml2) throws JsonProcessingException {
         XmlMapper mapper = new XmlMapper();
         return mapper.readTree(xml1).equals(mapper.readTree(xml2));
+    }
+    
+    public static String toJSON(String xml) throws JsonProcessingException {
+        JsonNode jsonNodeTree = new XmlMapper().readTree(xml);
+        return new ObjectMapper().writeValueAsString(jsonNodeTree);
+    }
+    
+    public static String toYAML(String xml) throws JsonProcessingException {
+        JsonNode jsonNodeTree = new XmlMapper().readTree(xml);
+        return new YAMLMapper().writeValueAsString(jsonNodeTree);
     }
     
 }
